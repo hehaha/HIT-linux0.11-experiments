@@ -232,6 +232,17 @@ ok_func:
 	jmp put_queue
 end_func:
 	ret
+    
+
+myfunc:
+	pushl %eax
+	pushl %ecx
+	pushl %edx
+	call star_output_trigger
+	popl %edx
+	popl %ecx
+	popl %eax
+    ret
 
 /*
  * function keys send F1:'esc [ [ A' F2:'esc [ [ B' etc.
@@ -500,7 +511,7 @@ minus:	cmpb $1,e0
  * they are make or break.
  */
 key_table:
-	.long none,do_self,do_self,do_self	/* 00-03 s0 esc 1 2 */
+	.long none,do_self,myfunc,do_self	/* 00-03 s0 esc 1 2 */
 	.long do_self,do_self,do_self,do_self	/* 04-07 3 4 5 6 */
 	.long do_self,do_self,do_self,do_self	/* 08-0B 7 8 9 0 */
 	.long do_self,do_self,do_self,do_self	/* 0C-0F + ' bs tab */
@@ -522,7 +533,7 @@ key_table:
 	.long cursor,cursor,do_self,cursor	/* 4C-4F n5 right + end */
 	.long cursor,cursor,cursor,cursor	/* 50-53 dn pgdn ins del */
 	.long none,none,do_self,func		/* 54-57 sysreq ? < f11 */
-	.long func,none,none,none		/* 58-5B f12 ? ? ? */
+	.long myfunc,none,none,none		/* 58-5B f12 ? ? ? */
 	.long none,none,none,none		/* 5C-5F ? ? ? ? */
 	.long none,none,none,none		/* 60-63 ? ? ? ? */
 	.long none,none,none,none		/* 64-67 ? ? ? ? */

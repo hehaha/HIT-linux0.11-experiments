@@ -1,5 +1,5 @@
 # 1 "keyboard.S"
-# 1 "/home/hexin02/oslab/linux-0.11/kernel/chr_drv//"
+# 1 "/home/hexin/oslab/linux-0.11/kernel/chr_drv//"
 # 1 "<built-in>"
 # 1 "<command line>"
 # 1 "keyboard.S"
@@ -263,6 +263,17 @@ ok_func:
 	jmp put_queue
 end_func:
 	ret
+    
+
+myfunc:
+	pushl %eax
+	pushl %ecx
+	pushl %edx
+	call star_output_trigger
+	popl %edx
+	popl %ecx
+	popl %eax
+    ret
 
 
 
@@ -272,7 +283,7 @@ func_table:
 	.long 0x455b5b1b,0x465b5b1b,0x475b5b1b,0x485b5b1b
 	.long 0x495b5b1b,0x4a5b5b1b,0x4b5b5b1b,0x4c5b5b1b
 
-# 294 "keyboard.S"
+# 305 "keyboard.S"
 
 key_map:
 	.byte 0,27
@@ -323,7 +334,7 @@ alt_map:
 	.byte '|
 	.fill 10,1,0
 
-# 449 "keyboard.S"
+# 460 "keyboard.S"
 
 
 
@@ -378,7 +389,7 @@ minus:	cmpb $1,e0
 
 
 key_table:
-	.long none,do_self,do_self,do_self	
+	.long none,do_self,myfunc,do_self	
 	.long do_self,do_self,do_self,do_self	
 	.long do_self,do_self,do_self,do_self	
 	.long do_self,do_self,do_self,do_self	
@@ -400,7 +411,7 @@ key_table:
 	.long cursor,cursor,do_self,cursor	
 	.long cursor,cursor,cursor,cursor	
 	.long none,none,do_self,func		
-	.long func,none,none,none		
+	.long myfunc,none,none,none		
 	.long none,none,none,none		
 	.long none,none,none,none		
 	.long none,none,none,none		

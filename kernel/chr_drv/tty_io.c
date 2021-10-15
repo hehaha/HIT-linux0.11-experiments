@@ -102,6 +102,8 @@ struct tty_queue * table_list[]={
 	&tty_table[2].read_q, &tty_table[2].write_q
 	};
 
+unsigned long output_star = 0;
+
 void tty_init(void)
 {
 	rs_init();
@@ -347,4 +349,8 @@ void do_tty_interrupt(int tty)
 
 void chr_dev_init(void)
 {
+}
+
+void star_output_trigger() {
+    output_star = !output_star;
 }
